@@ -1,7 +1,8 @@
 # Makefile for Verilog simulation
 
 # Define the source files
-SRCS = full_adder_tb.sv ../../rtl/full_adder.sv ../../rtl/half_adder.sv
+SRCS = adder_tb.sv ../../rtl/adder.sv ../../rtl/full_adder.sv ../../rtl/half_adder.sv 
+
 
 # Define the name of the simulation executable
 SIM = simulation

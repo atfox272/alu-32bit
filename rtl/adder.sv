@@ -1,5 +1,5 @@
 // Name: Adder
-// Description:
+// Description: Module Adder is used to add two integers with a width determined by the parameter WIDTH. Additionally, the Adder module can also function as a subtractor module by setting the "invert_i_2" pin. Moreover, the module supports several pins to determine overflow, zero output, etc.
 
 `include "adder_define.h"
 
@@ -8,20 +8,20 @@ module adder
   parameter WIDTH = 32
 )
 (
-  input [WIDTH - 1:0] i_1,
-  input [WIDTH - 1:0] i_2,
+  input [WIDTH - 1:0] i_1, // Input 1
+  input [WIDTH - 1:0] i_2, // Input 2
   `ifdef INVERT_INPUT_2
-  input invert_i_2,
+  input invert_i_2,        // Invert input 2
   `endif
-  output [WIDTH - 1:0] o
+  output [WIDTH - 1:0] o   // Output
   `ifdef OVERFLOW_FLAG
-  ,output overflow_flag
+  ,output overflow_flag    // Output is overflowed
   `endif
   `ifdef ZERO_FLAG
-  ,output zero_flag	 
+  ,output zero_flag	   // Output is equal to zero
   `endif
   `ifdef EXCEPTION_FLAG
-  ,output exception_flag
+  ,output exception_flag   // Exception case
   `endif
 );
 

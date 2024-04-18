@@ -2,15 +2,14 @@
 module mux_tb;
 
 localparam IN_WIDTH = 32;
-localparam SEL_WIDTH = 3;
+localparam SEL_WIDTH = 4;
 
 reg [IN_WIDTH - 1:0] in [(1 <<SEL_WIDTH) - 1:0];
 reg [SEL_WIDTH - 1:0] sel;
 wire [IN_WIDTH - 1:0] out;
 
-multiplexer_8to1 #(
-  .IN_WIDTH(IN_WIDTH),
-  .SEL_WIDTH(SEL_WIDTH)
+multiplexer_16to1 #(
+  .IN_WIDTH(IN_WIDTH)
 ) mux_tb (
   .in_0(in[0]),
   .in_1(in[1]),
@@ -20,6 +19,14 @@ multiplexer_8to1 #(
   .in_5(in[5]),
   .in_6(in[6]),
   .in_7(in[7]),
+  .in_8(in[8]),
+  .in_9(in[9]),
+  .in_10(in[10]),
+  .in_11(in[11]),
+  .in_12(in[12]),
+  .in_13(in[13]),
+  .in_14(in[14]),
+  .in_15(in[15]),
   .sel(sel),
   .out(out)
 );

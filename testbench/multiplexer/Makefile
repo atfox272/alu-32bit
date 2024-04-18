@@ -1,7 +1,7 @@
 # Makefile for Verilog simulation
 
 # Define the source files
-SRCS = multiplexer_tb.sv ../../rtl/multiplexer_8to1.sv
+SRCS = multiplexer_tb.sv ../../rtl/multiplexer_16to1.sv
 
 # Define the name of the simulation executable
 SIM = simulation

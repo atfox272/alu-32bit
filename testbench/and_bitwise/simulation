@@ -1,0 +1,111 @@
+#! /usr/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x5657507a1180 .scope module, "and_bitwise_tb" "and_bitwise_tb" 2 5;
+ .timescale 0 0;
+P_0x5657507a1310 .param/l "WIDTH" 1 2 7, +C4<00000000000000000000000000100000>;
+v0x5657507b74b0_0 .var "enable", 0 0;
+v0x5657507b7570_0 .var "i_1", 31 0;
+v0x5657507b7640_0 .var "i_2", 31 0;
+v0x5657507b7740_0 .net "o", 31 0, L_0x5657507c7b80;  1 drivers
+E_0x5657507a30a0 .event edge, v0x5657507b7190_0, v0x5657507b6f80_0;
+S_0x5657507a13b0 .scope module, "ab_t" "and_bitwise" 2 13, 3 6 0, S_0x5657507a1180;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "i_1";
+    .port_info 1 /INPUT 32 "i_2";
+    .port_info 2 /INPUT 1 "enable";
+    .port_info 3 /OUTPUT 32 "o";
+P_0x56575079c080 .param/l "WIDTH" 0 3 8, +C4<00000000000000000000000000100000>;
+L_0x5657507c7b80 .functor AND 32, L_0x5657507c7880, L_0x5657507c7a40, C4<11111111111111111111111111111111>, C4<11111111111111111111111111111111>;
+L_0x7a123a29f018 .functor BUFT 1, C4<00000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x56575078dfd0_0 .net/2u *"_ivl_0", 31 0, L_0x7a123a29f018;  1 drivers
+L_0x7a123a29f060 .functor BUFT 1, C4<00000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x5657507b6e00_0 .net/2u *"_ivl_4", 31 0, L_0x7a123a29f060;  1 drivers
+v0x5657507b6ee0_0 .net "enable", 0 0, v0x5657507b74b0_0;  1 drivers
+v0x5657507b6f80_0 .net "i_1", 31 0, v0x5657507b7570_0;  1 drivers
+v0x5657507b7060_0 .net "i_1_in", 31 0, L_0x5657507c7880;  1 drivers
+v0x5657507b7190_0 .net "i_2", 31 0, v0x5657507b7640_0;  1 drivers
+v0x5657507b7270_0 .net "i_2_in", 31 0, L_0x5657507c7a40;  1 drivers
+v0x5657507b7350_0 .net "o", 31 0, L_0x5657507c7b80;  alias, 1 drivers
+L_0x5657507c7880 .functor MUXZ 32, L_0x7a123a29f018, v0x5657507b7570_0, v0x5657507b74b0_0, C4<>;
+L_0x5657507c7a40 .functor MUXZ 32, L_0x7a123a29f060, v0x5657507b7640_0, v0x5657507b74b0_0, C4<>;
+    .scope S_0x5657507a1180;
+T_0 ;
+    %pushi/vec4 0, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 0, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %end;
+    .thread T_0;
+    .scope S_0x5657507a1180;
+T_1 ;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v0x5657507b74b0_0, 0;
+    %delay 1, 0;
+    %pushi/vec4 4767, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 3026, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 4294967295, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 2823365925, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 4294967295, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 4294967295, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 3892320512, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 4294967295, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x5657507b74b0_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 4294967295, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 0, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 4287621451, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 4294724159, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 4289012223, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 2147483655, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %delay 2, 0;
+    %pushi/vec4 4294967295, 0, 32;
+    %assign/vec4 v0x5657507b7570_0, 0;
+    %pushi/vec4 4294967295, 0, 32;
+    %assign/vec4 v0x5657507b7640_0, 0;
+    %end;
+    .thread T_1;
+    .scope S_0x5657507a1180;
+T_2 ;
+    %wait E_0x5657507a30a0;
+    %delay 1, 0;
+    %vpi_call 2 64 "$display", "Input 1: %32b", v0x5657507b7570_0 {0 0 0};
+    %vpi_call 2 65 "$display", "Input 2: %32b", v0x5657507b7640_0 {0 0 0};
+    %vpi_call 2 66 "$display", "Enable:  %32b", v0x5657507b74b0_0 {0 0 0};
+    %vpi_call 2 67 "$display", "Output : %32b", v0x5657507b7740_0 {0 0 0};
+    %vpi_call 2 68 "$display", "---------------------------------------" {0 0 0};
+    %jmp T_2;
+    .thread T_2, $push;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "and_bitwise_tb.sv";
+    "../../rtl/and_bitwise.sv";

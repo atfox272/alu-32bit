@@ -16,7 +16,7 @@ shift shift_test(
   .i_1(i_1),
   .shamt(shamt),
   .shope(shope),
-  `ifdef ENABLE
+  `ifdef SHIFT_ENABLE_PIN
   .enable(enable),
   `endif 
   .o(o)
@@ -70,7 +70,7 @@ initial begin
   shamt <= 5'd22;
   shope <= 1'b1; // shift left
 
-`ifdef ENABLE
+`ifdef SHIFT_ENABLE_PIN
   enable <= 1'b0;
   #1 
   i_1 <= 32'd3;
@@ -125,7 +125,7 @@ initial begin
 end
 always @(i_1, shamt, shope) begin
   #1;
-  `ifdef ENABLE
+  `ifdef SHIFT_ENABLE_PIN
   golden_result = (enable) ? ((shope) ? i_1 * (2**shamt) : i_1 / (2**shamt)) : {WIDTH{1'b0}};
   `else
    golden_result = (shope) ? i_1 * (2**shamt) : i_1 / (2**shamt); 

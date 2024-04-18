@@ -9,7 +9,7 @@ localparam WIDTH = 32;
 reg [WIDTH - 1:0] i_1;
 reg [WIDTH - 1:0] i_2;
 reg invert_i_2;
-`ifdef ENABLE
+`ifdef ADDER_ENABLE_PIN
 reg enable;
 `endif 
 
@@ -24,7 +24,7 @@ adder #(
   .i_1(i_1),
   .i_2(i_2),
   .invert_i_2(invert_i_2),
-  `ifdef ENABLE
+  `ifdef ADDER_ENABLE_PIN
   .enable(enable),
   `endif 
   .o(o),
@@ -60,7 +60,7 @@ reg golden_overflow;
 integer correctness;
 
 initial begin
-  `ifdef ENABLE
+  `ifdef ADDER_ENABLE_PIN
   enable <= 1'b1;
   `endif 
   i_1 <= 32'd15;
@@ -76,7 +76,7 @@ initial begin
   i_1 <= 32'd1;
   i_2 <= 32'd0;
   
-  `ifdef ENABLE
+  `ifdef ADDER_ENABLE_PIN
   enable <= 1'b0;
   `endif 
   
@@ -96,7 +96,7 @@ initial begin
   
   #5 $finish;
 end
-`ifdef ENABLE 
+`ifdef ADDER_ENABLE_PIN
 initial begin
   $display("  Input 1   |   Input 2   |    Enable   |     Sum     |  Overflow   |  Golden Sum |  Golden Ovf | Correctness |");
 end
@@ -107,7 +107,7 @@ end
 `endif
 always @(i_1, i_2, invert_i_2) begin
   #1;
-  `ifdef ENABLE 
+  `ifdef ADDER_ENABLE_PIN
   golden_result = (enable) ? i_1 + i_2 : {WIDTH{1'b0}};
   golden_overflow = (enable) ? ((golden_result < i_1) | (golden_result < i_2)) : 1'b0;
   correctness = (o == golden_result) & (overflow_flag == golden_overflow);

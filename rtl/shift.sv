@@ -12,7 +12,7 @@ module shift
   input [WIDTH - 1:0] i_1,  // Input 1
   input [SHAMT_WIDTH - 1:0] shamt,// Shift Amount
   input shope,  // Shift Operation (1-left/0-right)
-  `ifdef ENABLE
+  `ifdef SHIFT_ENABLE_PIN
   input enable, 
   `endif 
   output [WIDTH - 1:0] o // Output
@@ -24,7 +24,7 @@ wire shope_in;
 wire [WIDTH - 1:0] shamt_left_dec [WIDTH - 1:0];
 wire [WIDTH - 1:0] shamt_right_dec [WIDTH - 1:0];
 
-`ifdef ENABLE
+`ifdef SHIFT_ENABLE_PIN
 assign i_1_in = (enable) ? i_1 : {WIDTH{1'b0}};
 assign shamt_in = (enable) ? shamt : {SHAMT_WIDTH{1'b0}};
 assign shope_in = (enable) ? shope : 1'b0;

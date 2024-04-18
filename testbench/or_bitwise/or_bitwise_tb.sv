@@ -13,7 +13,7 @@ wire [WIDTH - 1:0] o;
 or_bitwise ob_t(
   .i_1(i_1),
   .i_2(i_2),
-  `ifdef ENABLE
+  `ifdef OR_BITWISE_ENABLE_PIN
   .enable(enable),
   `endif 
   .o(o)
@@ -25,7 +25,7 @@ initial begin
 end
 
 initial begin
-  `ifdef ENABLE
+  `ifdef OR_BITWISE_ENABLE_PIN
   enable <= 1'b1;
   `endif
   #1 
@@ -47,7 +47,7 @@ initial begin
   i_1 <= 32'b11111111100011111110100101001011;
   i_2 <= 32'b11111111111111000100101000111111;
   #2;
-  `ifdef ENABLE
+  `ifdef OR_BITWISE_ENABLE_PIN
   enable <= 1'b0;
   `endif
   #2

@@ -10,7 +10,7 @@ module decoder
 )
 (
   input [IN_WIDTH - 1:0] i,
-`ifdef ENABLE
+`ifdef DECODER_ENABLE_PIN
   input enable,
 `endif
   output [(1 << IN_WIDTH) - 1:0] o
@@ -18,7 +18,7 @@ module decoder
 
 wire [IN_WIDTH - 1:0] i_in;
 
-`ifdef ENABLE
+`ifdef DECODER_ENABLE_PIN
 assign i_in = (enable) ? i : {IN_WIDTH{1'b0}};
 `else
 assign i_in = i;

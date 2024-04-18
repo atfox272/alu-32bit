@@ -24,7 +24,7 @@ adder #(
   .i_1(i_1),
   .i_2(i_2),
   .invert_i_2(invert_i_2),
-`ifdef ENABLE
+`ifdef ADDER_ENABLE_PIN
   .enable(1'b1),
 `endif
   .o(o),

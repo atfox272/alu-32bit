@@ -36,7 +36,7 @@ wire enable_and_bitwise;
 wire [DATA_WIDTH - 1:0] o_and_bitwise;
 // Interface of Bitwise OR
 wire enable_or_bitwise;
-wire o_or_bitwise;
+wire [DATA_WIDTH - 1:0] o_or_bitwise;
 // Interface of Shift block
 wire enable_shift;
 wire enable_shift_left;
@@ -48,7 +48,7 @@ wire [(1<<ALU_CTRL_WIDTH) - 1:0] o_decoder;
 wire [DATA_WIDTH - 1:0] in_mux [(1<<ALU_CTRL_WIDTH) - 1:0];
 
 // ALU's flag
-assign zero_flag = (o == {WIDTH{1'b0}});
+assign zero_flag = (o == {DATA_WIDTH{1'b0}});
 assign overflow_flag = overflow_adder;
 assign exception_flag = exception_adder;
 // ADDER decode
@@ -128,6 +128,7 @@ shift #(
   .i_1(i_1),
   .shamt(i_2[($clog2(DATA_WIDTH) - 1):0]),
   .shope(enable_shift_left), // Left/Right (1/0)
+  .enable(enable_shift),
   // Output 
   .o(o_shift)
 );
@@ -144,8 +145,8 @@ decoder #(
 );
 
 multiplexer_16to1 #(
-  .IN_WIDTH(IN_WIDTH)
-) mux_tb (
+  .IN_WIDTH(DATA_WIDTH)
+) mux_block (
   // Input
   .in_0(in_mux[0]),
   .in_1(in_mux[1]),
@@ -167,6 +168,7 @@ multiplexer_16to1 #(
   // Output
   .out(o)
 );
+
 
 
 endmodule

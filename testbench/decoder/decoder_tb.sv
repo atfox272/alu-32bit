@@ -1,6 +1,6 @@
 // Name: Testbench of decoder module
 
-`include "decoder_define.h"
+//`include "decoder_define.h"
 
 module decoder_tb;
 
@@ -15,7 +15,7 @@ decoder #(
   .ACTIVE(1'b1)		// Active HIGH
 ) dt (
   .i(i),
-`ifdef ENABLE
+`ifdef DECODER_ENABLE_PIN
   .enable(enable),
 `endif
   .o(o)

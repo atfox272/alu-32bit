@@ -10,7 +10,7 @@ module and_bitwise
 (
   input [WIDTH - 1:0] i_1,// Input 1
   input [WIDTH - 1:0] i_2,// Input 2
-  `ifdef ENABLE
+  `ifdef AND_BITWISE_ENABLE_PIN
   input enable,
   `endif 
   output [WIDTH - 1:0] o  // Output
@@ -19,7 +19,7 @@ module and_bitwise
 wire [WIDTH - 1:0] i_1_in;
 wire [WIDTH - 1:0] i_2_in;
 
-`ifdef ENABLE
+`ifdef AND_BITWISE_ENABLE_PIN
 assign i_1_in = (enable) ? i_1 : {WIDTH{1'b0}};
 assign i_2_in = (enable) ? i_2 : {WIDTH{1'b0}};
 `else

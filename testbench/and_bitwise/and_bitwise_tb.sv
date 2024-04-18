@@ -13,7 +13,7 @@ reg enable;
 and_bitwise ab_t(
   .i_1(i_1),
   .i_2(i_2),
-  `ifdef ENABLE
+  `ifdef AND_BITWISE_ENABLE_PIN
   .enable(enable),
   `endif
   .o(o)
@@ -25,7 +25,7 @@ initial begin
 end
 
 initial begin
-  `ifdef ENABLE
+  `ifdef AND_BITWISE_ENABLE_PIN
   enable <= 1'b1;
   `endif
   #1 
@@ -41,7 +41,7 @@ initial begin
   i_1 <= 32'b11101000000000000001100100000000;
   i_2 <= 32'b11111111111111111111111111111111;
   #2;
-  `ifdef ENABLE
+  `ifdef AND_BITWISE_ENABLE_PIN
   enable <= 1'b0;
   `endif
   #2

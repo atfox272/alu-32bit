@@ -13,6 +13,9 @@ module adder
   `ifdef INVERT_INPUT_2
   input invert_i_2,        // Invert input 2
   `endif
+  `ifdef ENABLE
+  input enable,		   // enable the adder  
+  `endif
   output [WIDTH - 1:0] o   // Output
   `ifdef OVERFLOW_FLAG
   ,output overflow_flag    // Output is overflowed
@@ -27,12 +30,21 @@ module adder
 
 wire [WIDTH - 1:0] carry;
 wire [WIDTH - 1:0] sum;
+wire [WIDTH - 1:0] i_1_in;
+wire [WIDTH - 1:0] i_2_in;
 
+`ifdef ENABLE
+assign i_1_in = (enable) ? i_1 : {WIDTH{1'b0}};
+assign i_2_in = (enable) ? i_2 : {WIDTH{1'b0}};
+`else 
+assign i_1_in = i_1;
+assign i_2_in = i_2;
+`endif
 assign o = sum;
 assign zero_flag = sum == {WIDTH{1'b0}};
 assign exception_flag = overflow_flag;
 `ifdef INVERT_INPUT_2
-assign overflow_flag = (invert_i_2) ? (((~i_1[WIDTH - 1]) & (i_2[WIDTH - 1]) & (o[WIDTH - 1])) | ((i_1[WIDTH - 1]) & (~i_2[WIDTH - 1]) & (~o[WIDTH - 1]))) : carry[WIDTH - 1];
+assign overflow_flag = (invert_i_2) ? (((~i_1_in[WIDTH - 1]) & (i_2_in[WIDTH - 1]) & (o[WIDTH - 1])) | ((i_1_in[WIDTH - 1]) & (~i_2_in[WIDTH - 1]) & (~o[WIDTH - 1]))) : carry[WIDTH - 1];
 `else
 assign overflow_flag = carry[WIDTH - 1];
 `endif
@@ -41,8 +53,8 @@ full_adder fa[WIDTH - 1:0];
 generate
 for (genvar i = 0; i < WIDTH; i = i + 1) begin
   if(i == 0) begin
-    assign fa[0].i_1 = i_1[0];
-    assign fa[0].i_2 = i_2[0];
+    assign fa[0].i_1 = i_1_in[0];
+    assign fa[0].i_2 = i_2_in[0];
     assign fa[0].i_3 = 1'b0;
     `ifdef INVERT_INPUT_2
     assign fa[0].invert_i_2 = invert_i_2;
@@ -51,8 +63,8 @@ for (genvar i = 0; i < WIDTH; i = i + 1) begin
     assign carry[i] = fa[0].c;
   end 
   else begin
-    assign fa[i].i_1 = i_1[i];
-    assign fa[i].i_2 = i_2[i];
+    assign fa[i].i_1 = i_1_in[i];
+    assign fa[i].i_2 = i_2_in[i];
     assign fa[i].i_3 = fa[i - 1].c;
     `ifdef INVERT_INPUT_2
     assign fa[i].invert_i_2 = invert_i_2;

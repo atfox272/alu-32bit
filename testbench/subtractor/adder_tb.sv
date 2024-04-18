@@ -1,7 +1,10 @@
 // Name: Testbench of Adder module
 // Description: Combine Adder with Inverter to make Subtractor
 //`define ALL_CASES
+
+`include "adder_define.h"
 `define SOME_CASES
+
 module adder_tb;
 
 localparam WIDTH = 32;
@@ -21,6 +24,9 @@ adder #(
   .i_1(i_1),
   .i_2(i_2),
   .invert_i_2(invert_i_2),
+`ifdef ENABLE
+  .enable(1'b1),
+`endif
   .o(o),
   .overflow_flag(overflow_flag),
   .zero_flag(zero_flag),

@@ -1,5 +1,6 @@
 // Name: Testbench of Adder module
 //`define ALL_CASES
+`include "adder_define.h"
 `define SOME_CASES
 module adder_tb;
 
@@ -8,6 +9,9 @@ localparam WIDTH = 32;
 reg [WIDTH - 1:0] i_1;
 reg [WIDTH - 1:0] i_2;
 reg invert_i_2;
+`ifdef ENABLE
+reg enable;
+`endif 
 
 wire [WIDTH - 1:0] o;
 wire zero_flag;
@@ -20,6 +24,9 @@ adder #(
   .i_1(i_1),
   .i_2(i_2),
   .invert_i_2(invert_i_2),
+  `ifdef ENABLE
+  .enable(enable),
+  `endif 
   .o(o),
   .overflow_flag(overflow_flag),
   .zero_flag(zero_flag),
@@ -53,6 +60,9 @@ reg golden_overflow;
 integer correctness;
 
 initial begin
+  `ifdef ENABLE
+  enable <= 1'b1;
+  `endif 
   i_1 <= 32'd15;
   i_2 <= 32'd39;
   #10;
@@ -65,6 +75,11 @@ initial begin
   #10;
   i_1 <= 32'd1;
   i_2 <= 32'd0;
+  
+  `ifdef ENABLE
+  enable <= 1'b0;
+  `endif 
+  
   #10;
   i_1 <= 32'd0;
   i_2 <= 32'd1000;
@@ -81,15 +96,28 @@ initial begin
   
   #5 $finish;
 end
+`ifdef ENABLE 
+initial begin
+  $display("  Input 1   |   Input 2   |    Enable   |     Sum     |  Overflow   |  Golden Sum |  Golden Ovf | Correctness |");
+end
+`else 
 initial begin
   $display("  Input 1   |   Input 2   |     Sum     |  Overflow   |  Golden Sum |  Golden Ovf | Correctness |");
 end
+`endif
 always @(i_1, i_2, invert_i_2) begin
   #1;
+  `ifdef ENABLE 
+  golden_result = (enable) ? i_1 + i_2 : {WIDTH{1'b0}};
+  golden_overflow = (enable) ? ((golden_result < i_1) | (golden_result < i_2)) : 1'b0;
+  correctness = (o == golden_result) & (overflow_flag == golden_overflow);
+  #2 $display("%11d | %11d | %11d | %11d | %11b | %11d | %11d | %11d |", i_1, i_2, enable, o, overflow_flag, golden_result, golden_overflow, correctness);
+  `else
   golden_result = i_1 + i_2;
   golden_overflow = (golden_result < i_1) | (golden_result < i_2);
   correctness = (o == golden_result) & (overflow_flag == golden_overflow);
   #2 $display("%11d | %11d | %11d | %11b | %11d | %11d | %11d |", i_1, i_2, o, overflow_flag, golden_result, golden_overflow, correctness);
+  `endif
 end
 `endif
 

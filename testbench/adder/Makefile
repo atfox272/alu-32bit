@@ -21,8 +21,7 @@ run: $(SIM)
 
 # Rule to clean up generated files
 clean:
-	rm adder_define.h
 	rm -f $(SIM)
-
+	
 .PHONY: all run clean
 

@@ -11,11 +11,13 @@ all: $(SIM)
 
 # Rule to build the simulation executable
 $(SIM): $(SRCS)
+	cp ../../rtl/and_bitwise_define.h ./
 	iverilog -o $(SIM) $(SRCS)
 
 # Rule to run the simulation
 run: $(SIM)
 	vvp $(SIM)
+	rm and_bitwise_define.h
 
 # Rule to clean up generated files
 clean:

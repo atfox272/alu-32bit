@@ -11,6 +11,7 @@ all: $(SIM)
 
 # Rule to build the simulation executable
 $(SIM): $(SRCS)
+	cp ../../rtl/shift_define.h ./
 	iverilog -o $(SIM) $(SRCS)
 
 # Rule to run the simulation
@@ -19,6 +20,7 @@ run: $(SIM)
 
 # Rule to clean up generated files
 clean:
+	rm shift_define.h
 	rm -f $(SIM)
 
 .PHONY: all run clean

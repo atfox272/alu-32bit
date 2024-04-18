@@ -1,7 +1,7 @@
 # Makefile for Verilog simulation
 
 # Define the source files
-SRCS = or_bitwise_tb.sv ../../rtl/or_bitwise.sv
+SRCS = multiplexer_tb.sv ../../rtl/multiplexer_8to1.sv
 
 # Define the name of the simulation executable
 SIM = simulation
@@ -11,7 +11,6 @@ all: $(SIM)
 
 # Rule to build the simulation executable
 $(SIM): $(SRCS)
-	cp ../../rtl/or_bitwise_define.h ./
 	iverilog -o $(SIM) $(SRCS)
 
 # Rule to run the simulation
@@ -20,7 +19,6 @@ run: $(SIM)
 
 # Rule to clean up generated files
 clean:
-	rm or_bitwise_define.h
 	rm -f $(SIM)
 
 .PHONY: all run clean

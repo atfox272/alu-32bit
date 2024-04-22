@@ -24,8 +24,8 @@ assign i_in = (enable) ? i : {IN_WIDTH{1'b0}};
 assign i_in = i;
 `endif
 generate 
-  for (genvar i = 0; i < (1 << IN_WIDTH); i = i + 1) begin
-    assign o[i] = (i_in == i) ? ACTIVE[0] : ~ACTIVE[0];
+  for (genvar idx = 0; idx < (1 << IN_WIDTH); idx = idx + 1) begin
+    assign o[idx] = (i_in == idx) ? ACTIVE[0] : ~ACTIVE[0];
   end
 endgenerate
 

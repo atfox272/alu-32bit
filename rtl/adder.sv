@@ -48,29 +48,32 @@ assign overflow_flag = (invert_i_2) ? (((~i_1_in[WIDTH - 1]) & (i_2_in[WIDTH - 1
 `else
 assign overflow_flag = carry[WIDTH - 1];
 `endif
-full_adder fa[WIDTH - 1:0];
 
 generate
 for (genvar i = 0; i < WIDTH; i = i + 1) begin
-  if(i == 0) begin
-    assign fa[0].i_1 = i_1_in[0];
-    assign fa[0].i_2 = i_2_in[0];
-    assign fa[0].i_3 = 1'b0;
-    `ifdef ADDER_INVERT_INPUT_2
-    assign fa[0].invert_i_2 = invert_i_2;
-    `endif
-    assign sum[i] = fa[0].s;
-    assign carry[i] = fa[0].c;
-  end 
+  if (i == 0) begin
+    full_adder i_full_adder (
+      .i_1(i_1_in[i]),
+      .i_2(i_2_in[i]),
+      .i_3(1'b0),
+      `ifdef ADDER_INVERT_INPUT_2
+      .invert_i_2(invert_i_2),
+      `endif
+      .s(sum[i]),
+      .c(carry[i])
+    );
+  end
   else begin
-    assign fa[i].i_1 = i_1_in[i];
-    assign fa[i].i_2 = i_2_in[i];
-    assign fa[i].i_3 = fa[i - 1].c;
-    `ifdef ADDER_INVERT_INPUT_2
-    assign fa[i].invert_i_2 = invert_i_2;
-    `endif
-    assign sum[i] = fa[i].s;
-    assign carry[i] = fa[i].c;
+    full_adder i_full_adder (
+      .i_1(i_1_in[i]),
+      .i_2(i_2_in[i]),
+      .i_3(carry[i - 1]),
+      `ifdef ADDER_INVERT_INPUT_2
+      .invert_i_2(invert_i_2),
+      `endif
+      .s(sum[i]),
+      .c(carry[i])
+    );
   end
 end
 endgenerate
